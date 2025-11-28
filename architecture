@@ -1,0 +1,35 @@
+src/
+│
+│
+├── features/               
+│   ├── auth/
+│   │   ├── api/
+│   │   ├── components/
+│   │   ├── hooks/
+│   │   └── utils/
+│   │
+│   ├── invoice/
+│   │   ├── api/
+│   │   ├── components/
+│   │   ├── hooks/
+│   │   └── utils/
+│   │
+│   ├── users/
+│   │   ├── api/
+│   │   ├── components/
+│   │   ├── hooks/
+│   │   └── utils/
+│   │
+│   │....
+│
+├── shared/               
+│   ├── components/        # buttons, modals, inputs...
+│   ├── hooks/             # useDebounce, useMediaQuery...
+│   ├── lib/               # functions عامة
+│   ├── utils/             # helpers صغيرة
+│   ├── icons/              
+│   ├── types/             # TypeScript types
+│   ├── styles/            # CSS / Tailwind configs
+│   └── config/            # constants, API URLs...
+│
+└── assets/                # صور - فونتات - لوجو
