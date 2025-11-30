@@ -26,7 +26,7 @@ function User() {
     })
   };
   return (
-    <div className="relative px-2">
+    <div className="relative px-2 lg:py-2">
       <Avatar
         onClick={() => setIsUserOn(!isUserOn)}
         src={session?.user.image}

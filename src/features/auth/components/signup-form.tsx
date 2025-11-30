@@ -3,7 +3,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { signUpSchema } from '../lib/schemas/auth.schema';
 import type { Singup } from '../lib/types/auth.type';
 
-import { Spinner } from '@/shared/components/spinner';
+import { Spinner } from '@/shared/components/ui/spinner';
 import { SERVER_URL } from '@/shared/lib/utils';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';

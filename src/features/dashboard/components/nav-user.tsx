@@ -19,7 +19,7 @@ function NavUser({ className, user, onClickSignOut, ...props }: NavUserProps) {
   return (
     <div
       className={cn(
-        'bg-popover absolute  top-full right-2 mt-2  w-48 rounded-md shadow-lg py-2',
+        'bg-popover absolute z-50 right-2 mt-2 lg:bottom-6 lg:left-17  w-48 rounded-md shadow-lg py-2',
         className,
       )}
       {...props}

@@ -1,4 +1,4 @@
-import { Spinner } from '@/shared/components/spinner';
+import { Spinner } from '@/shared/components/ui/spinner';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';

@@ -193,3 +193,23 @@
     @apply bg-background text-foreground;
   }
 }
+
+.margins {
+  @apply md:px-8 md:max-w-2xl md:mx-auto lg:max-w-3xl  xl:max-w-4xl 
+}
+
+/* Scrollbar width */
+::-webkit-scrollbar {
+  /* Width of the scrollbar */
+  @apply h-2 w-1;
+}
+
+/* Scrollbar track (background) */
+::-webkit-scrollbar-track {
+  @apply bg-transparent; /* Background color of the track */
+}
+
+/* Scrollbar thumb (the bar that moves) */
+::-webkit-scrollbar-thumb {
+  @apply bg-foreground/20 rounded-md; /* Color of the scrollbar thumb */
+}

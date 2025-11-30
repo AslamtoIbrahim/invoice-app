@@ -1,7 +1,7 @@
 import { authClient } from '@/features/auth/lib/auth-client';
 import NavBar from '@/features/dashboard/components/navbar';
-import { Spinner } from '@/shared/components/spinner';
-import { useNavigate } from 'react-router-dom';
+import { Spinner } from '@/shared/components/ui/spinner';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 function DashboardPage() {
   const { data: session, isPending, error } = authClient.useSession();
@@ -26,8 +26,10 @@ function DashboardPage() {
     );
   }
   return (
-    <div>
+    <div className='lg:flex'>
       <NavBar />
+      {/* <Dashboard /> */}
+      <Outlet />
     </div>
   );
 }
