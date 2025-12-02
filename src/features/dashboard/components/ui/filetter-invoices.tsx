@@ -15,7 +15,7 @@ function FilterInvoices({ className, ...props }: FilterInvoicesProps) {
         setStatus(status.toUpperCase())
     };
 
-    return <div className={cn('relative ', className)} {...props}>
+    return <div className={cn('relative z-50', className)} {...props}>
         <ButtonIcon onClick={() => setIsFiletrOn(!isFiletrOn)} className="flex items-center px-2 justify-between md:gap-10">
             <span className="md:text-lg/2 font-sans capitalize w-10">{status ? status.toLocaleLowerCase() : "Filter"}</span>
             <ChevronDown className="shrink-0" />
