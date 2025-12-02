@@ -12,13 +12,14 @@ type DashboardProps = React.ComponentProps<'div'> & { className?: string; }
 
 function Dashboard({ className, ...props }: DashboardProps) {
     const [isFormActive, setIsFormActive] = useState(false);
- 
+
     function handleAddInvoice() {
         setIsFormActive(pr => !pr)
     }
 
     return (
         <motion.div
+            className="md:px-8 md:max-w-3xl md:mx-auto md:mt-8 lg:flex-2 lg:max-w-5xl lg:mx-auto lg:mt-12 xl:max-w-7xl"
             initial="initial"
             animate="in"
             exit="out"
@@ -26,7 +27,7 @@ function Dashboard({ className, ...props }: DashboardProps) {
             transition={{ duration: 0.5 }}
         >
             <StatusProvider>
-                <div className={cn('md:px-8 md:max-w-3xl md:mx-auto md:mt-8 lg:flex-1 lg:max-w-5xl lg:mx-auto lg:mt-12 xl:max-w-6xl', className)} {...props}>
+                <div className={cn('', className)} {...props}>
                     <InvoicePanel onAddInvoice={handleAddInvoice} />
                     <Content />
                     <ButtonAdd onClick={handleAddInvoice} />

@@ -14,7 +14,7 @@ export const findAllInvoices = async ({pageParam, queryKey}: {pageParam: string 
     const [, status] = queryKey
     const res = await axios.get<InvoiceAxiosResponse>(`${BACKEND_URL}/invoice`, {
         params:{
-            limit: 12,
+            limit: 3,
             cursor: pageParam || null,
             status,
         },

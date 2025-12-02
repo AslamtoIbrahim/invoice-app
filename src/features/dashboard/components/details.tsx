@@ -72,13 +72,14 @@ function Details({ className, ...props }: DetailsProps) {
 
     return (
         <motion.div
+            className="lg:flex-1 md:mt-8 lg:mt-12"
             initial="initial"
             animate="in"
             exit="out"
             variants={detailVariants}
             transition={{ duration: 0.5 }}
         >
-            <div className={cn('p-4 space-y-4 lg:flex-1 md:mt-8 lg:mt-12', className)} {...props}>
+            <div className={cn('p-4 space-y-4 ', className)} {...props}>
                 <div className="bg-popover p-4 margins rounded-lg flex items-center justify-between mb-4">
                     {/* <p className="font-light text-secondary-foreground">Status</p> */}
                     <Button onClick={() => navigate(-1)} variant={'ghost'} className="w-22 mr-auto">
