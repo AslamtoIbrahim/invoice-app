@@ -11,7 +11,7 @@ type BillItemProps = React.ComponentProps<'div'> & {
 
 function BillItem({ className, items, ...props }: BillItemProps) {
     return <div className={cn('bg-primary/10  rounded-lg overflow-hidden ', className)} {...props}>
-        <div className="flex items-center  justify-between px-4 py-2 text-secondary-foreground font-medium bg-background/10">
+        <div className="flex items-center justify-between px-4 py-2 text-foreground font-medium bg-background/10">
             <p className="flex-2">Item Client</p>
             <p className="flex-1 text-center hidden md:block">Qty.</p>
             <p className="flex-1 text-end hidden md:block">Price</p>

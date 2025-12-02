@@ -137,15 +137,15 @@ function Details({ className, ...props }: DetailsProps) {
                 <div className="bg-popover p-4 rounded-lg flex items-center justify-end gap-x-2 mb-4 margins ">
 
                     {invoice.status !== 'PAID' && <Button disabled={loading} onClick={handleUpdateStatus} variant={'default'} className="flex-1 md:flex-0 bg-chart-5">
-                        <CheckCheck className="text-secondary-foreground size-4" />
+                        <CheckCheck className="size-4" />
                         <span className="hidden md:inline">Mark as</span>Paid
                     </Button>}
                     <Button disabled={loading} onClick={() => setIsDeleteDialogOpen(true)} variant={'destructive'} className="flex-1 md:flex-0  md:w-fit">
-                        <Trash className="text-secondary-foreground size-4 " />
+                        <Trash className="  size-4 " />
                         Delete
                     </Button>
-                    <Button disabled={loading} onClick={handleAddInvoice} variant={'secondary'} className="flex-1 md:flex-0 md:w-fit">
-                        <Edit className="text-secondary-foreground size-4" />
+                    <Button disabled={loading} onClick={handleAddInvoice} variant={'outline'} className="flex-1 md:flex-0 md:w-fit">
+                        <Edit className=" size-4" />
                         Edit
                     </Button>
                 </div>
