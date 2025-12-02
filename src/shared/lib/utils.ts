@@ -1,6 +1,7 @@
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
-export const SERVER_URL = 'http://localhost:5173';
+export const FRONTEND_URL = 'http://localhost:5173';
+export const BACKEND_URL = 'http://localhost:3000';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -13,39 +14,35 @@ export function animate(isActive: boolean) {
 }
 export function slide(isActive: boolean) {
   return cn(
-    `transition-all duration-500 ease-out ${isActive ? '' : '-translate-x-full'}`,
+    `transition-all duration-500 ease-out ${isActive ? 'visible' : '-translate-x-full invisible'}`,
   );
 }
 
 
-export function styleByStatus(value : "PAID" | "PENDING" | "DRAFT") {
-  if(!value) return cn('')
-  
-   switch(value) {
-    case 'PAID':
-      return cn('bg-chart-5/10 text-chart-5')
-    case 'PENDING':
-      return cn('bg-chart-4/10 text-chart-4')
-    case 'DRAFT':
-      return cn('bg-secondary-foreground/10 text-secondary-foreground/80')
-    default:
-      return cn('')
-   }
 
+export const dashboardVariants = {
+      initial: { x: '-100vw' }, 
+      in: { x: 0 },           
+      out: { x: '100vw' } ,  
+  };
+
+export const detailVariants = {
+      initial: { x: '100vw' },  
+      in: { x: 0 },          
+      out: { x: '-100vw' } ,  
+};
+
+export const containerAnime = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.10 // ⌚ time it takse to show
+    },
+  },
 }
 
-export function fixPrice(value: number) {
-  return value.toLocaleString('en-US',
-   { minimumFractionDigits: 1,
-  maximumFractionDigits: 1,}
-  )
-}
-
-export function fixDate(value: Date) {
-  return value.toLocaleDateString('en-GB', {
-    day: '2-digit',
-    month: 'short',
-    year: 'numeric'
-  })
-}
-
+export const itemAnime = {
+  hidden: { opacity: 0, y: 15 },
+  show: { opacity: 1, y: 0 },
+};

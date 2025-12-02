@@ -5,6 +5,10 @@ import Details from './features/dashboard/components/details';
 import DashboardPage from './page/dashboard-page';
 import LoginPage from './page/login-page';
 import SignupPage from './page/signup-page';
+import {
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query'
 
 const router = createBrowserRouter([
   {
@@ -33,12 +37,18 @@ const router = createBrowserRouter([
       },
     ]
   },
-
 ]);
+
+
+const queryClient = new QueryClient()
+
+
 function App() {
   return (
     <>
-      <RouterProvider router={router} />
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
     </>
   );
 }

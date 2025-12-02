@@ -14,10 +14,7 @@ type StatusesFilterProps = React.ComponentProps<'div'> & {
 function StatusesFilter({ className, onSelecteStatus, ...props }: StatusesFilterProps) {
     const [value, setValue] = useState("");
     const handleOnValueChange = (status: string) => {
-        console.log('value', value);
-        console.log('status', status);
         if (status === value) {
-            console.log('status === value', status === value);
             setValue("");
             onSelecteStatus("");
             return

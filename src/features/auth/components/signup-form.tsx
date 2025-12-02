@@ -4,11 +4,11 @@ import { signUpSchema } from '../lib/schemas/auth.schema';
 import type { Singup } from '../lib/types/auth.type';
 
 import { Spinner } from '@/shared/components/ui/spinner';
-import { SERVER_URL } from '@/shared/lib/utils';
+import { FRONTEND_URL } from '@/shared/lib/utils';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { authClient } from '../lib/auth-client';
-import { Button } from './ui/button';
+import { Button } from '../../../shared/components/ui/button';
 import {
   Card,
   CardContent,
@@ -41,7 +41,7 @@ function SignupForm() {
         name: data.username,
         email: data.email,
         password: data.password,
-        callbackURL: `${SERVER_URL}/login`,
+        callbackURL: `${FRONTEND_URL}/login`,
       },
       {
         onSuccess: () => {

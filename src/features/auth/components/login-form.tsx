@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { authClient } from '../lib/auth-client';
 import { loginSchema } from '../lib/schemas/auth.schema';
 import type { Login } from '../lib/types/auth.type';
-import { Button } from './ui/button';
+import { Button } from '../../../shared/components/ui/button';
 import {
   Card,
   CardContent,

@@ -1,5 +1,6 @@
-import { cn, styleByStatus } from "@/shared/lib/utils";
+import { cn } from "@/shared/lib/utils";
 import { BsCircleFill } from "react-icons/bs";
+import { styleByStatus } from "../../lib/utils/utils";
 
 type StatusProps = React.ComponentProps<'div'> & {
     className?: string;

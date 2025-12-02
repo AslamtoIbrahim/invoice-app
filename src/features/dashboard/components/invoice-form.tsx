@@ -1,46 +1,88 @@
-import { Button } from "@/features/auth/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/features/auth/components/ui/card";
 import { Field } from "@/features/auth/components/ui/field";
 import { Input } from "@/features/auth/components/ui/input";
 import { Label } from "@/features/auth/components/ui/label";
+import { Button } from "@/shared/components/ui/button";
 import { Calendar } from "@/shared/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/shared/components/ui/popover";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/shared/components/ui/select";
-import { cn, fixPrice } from "@/shared/lib/utils";
+import { cn } from "@/shared/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { format } from "date-fns";
+import { addDays, format } from "date-fns";
 import { CalendarIcon, CircleXIcon, Plus } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
-import { InvoiceSchema } from "../lib/schemas/invoice.schema";
-import type { Invoice } from "../lib/types/invoice.types";
-import { addDays } from "date-fns";
+import { useCreateInvoice, useUpdateInvoice } from "../hooks/use-invoice";
+import { InvoiceFormSchema } from "../lib/schemas/invoice.schema";
+import type { InvoiceField, InvoiceRead } from "../lib/types/invoice.types";
+import type { Status } from "../lib/types/status.type";
+import { fixPrice, generateInvoiceCode } from "../lib/utils/utils";
 
 type FormInvoiceProps = React.ComponentProps<'div'> & {
   className?: string;
   onCloseFormInvoice?: () => void;
+  updateInvocie?: InvoiceRead;
 }
 
 
-function InvoiceForm({ className, onCloseFormInvoice, ...props }: FormInvoiceProps) {
-  const [defaulStatus, setDefaulStatus] = useState<"draft" | "pending">("pending");
-  const form = useForm<Invoice>({
-    resolver: zodResolver(InvoiceSchema),
+function InvoiceForm({ className, onCloseFormInvoice, updateInvocie, ...props }: FormInvoiceProps) {
+  const [defaulStatus, setDefaulStatus] = useState<Status>("PENDING");
+  const [loading, setLoading] = useState(false);
+  const createInvoice = useCreateInvoice()
+  const updateInvoice = useUpdateInvoice()
+  const form = useForm<InvoiceField>({
+    resolver: zodResolver(InvoiceFormSchema),
   });
 
-  const watchItems = form.watch('items')
+  const watchItems = form.watch('items');
 
   const { fields, append, remove } = useFieldArray({
     control: form.control,
     name: "items",
   })
 
-  
+  useEffect(() => {
+    if (updateInvocie) {
+      form.reset({
+        ...updateInvocie,
+        date: updateInvocie ? new Date(updateInvocie.date) : undefined,
+        paymentTerm: String(updateInvocie.paymentTerm) || '2'
+      })
+    }
+  }, [updateInvocie]);
 
-  function onSubmit(data: Invoice) {
+  function onSubmit(data: InvoiceField) {
+    setLoading(true)
     console.log('🤑 defaulStatus: ', defaulStatus);
     console.log('😍 data: ', data);
     console.log('🥩 terms: ', addDays(data.date, Number(data.paymentTerm)));
+    const updatedInvoices = {
+      ...data,
+      status: defaulStatus,
+    }
+    if (updateInvocie?.id) {
+      updateInvoice.mutate({ id: updateInvocie.id, invoice: updatedInvoices }, {
+        onSuccess(inv) {
+          console.log('msg', inv);
+          setLoading(false)
+          onCloseFormInvoice?.();
+        }
+      })
+      return
+    }
+
+    const newInvoice = {
+      ...data,
+      status: defaulStatus,
+      code: generateInvoiceCode()
+    }
+    createInvoice.mutate(newInvoice, {
+      onSuccess(inv) {
+        console.log('msg', inv);
+        setLoading(false)
+        onCloseFormInvoice?.();
+      }
+    })
   }
 
   function handleRestForm() {
@@ -52,7 +94,7 @@ function InvoiceForm({ className, onCloseFormInvoice, ...props }: FormInvoicePro
     <Card className="bg-background h-full overflow-auto md:p-8">
 
       <CardHeader>
-        <CardTitle>Create Invoice</CardTitle>
+        <CardTitle>{updateInvocie ? <>Update <span className="text-primary">#</span> {updateInvocie.code}</> : "Create"} Invoice</CardTitle>
         <CardDescription>
           Enter the billing details for the sender and the client.
         </CardDescription>
@@ -249,9 +291,10 @@ function InvoiceForm({ className, onCloseFormInvoice, ...props }: FormInvoicePro
                   <Select
                     name={field.name}
                     value={field.value}
+                    defaultValue={updateInvocie ? updateInvocie.paymentTerm : '1'}
                     onValueChange={field.onChange}>
                     <SelectTrigger className="w-[180px]" aria-invalid={fieldState.invalid}>
-                      <SelectValue placeholder="Theme" />
+                      <SelectValue placeholder="Select Net Day" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="1">Net 1 Day</SelectItem>
@@ -375,6 +418,7 @@ function InvoiceForm({ className, onCloseFormInvoice, ...props }: FormInvoicePro
       <CardFooter className="md:flex gap-1 md:gap-2 md:justify-end" >
         <Field className="w-fit text-xs md:mr-auto">
           <Button
+            disabled={loading}
             variant={'outline'}
             form="invoice-form"
             type="button"
@@ -386,21 +430,23 @@ function InvoiceForm({ className, onCloseFormInvoice, ...props }: FormInvoicePro
 
         <Field className="w-23 md:w-fit text-xs">
           <Button
+            disabled={loading}
             className=" text-xs bg-popover "
             form="invoice-form"
             type="submit"
-            onClick={() => setDefaulStatus('draft')}
+            onClick={() => setDefaulStatus('DRAFT')}
           >
             Save as Draft
           </Button>
         </Field>
         <Field className="w-23 md:w-fit text-xs">
           <Button
+            disabled={loading}
             form="invoice-form"
             type="submit"
-            onClick={() => setDefaulStatus('pending')}
+            onClick={() => setDefaulStatus('PENDING')}
           >
-            Save & Send
+            {updateInvocie ? "Update" : "Save & Send"}
           </Button>
         </Field>
 

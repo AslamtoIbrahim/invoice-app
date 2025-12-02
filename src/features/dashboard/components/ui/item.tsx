@@ -1,5 +1,6 @@
-import { cn, fixPrice } from "@/shared/lib/utils";
+import { cn } from "@/shared/lib/utils";
 import type { Items } from "../../lib/types/item.type";
+import { fixPrice } from "../../lib/utils/utils";
 
 type ItemProps = React.ComponentProps<'div'> & {
   className?: string;

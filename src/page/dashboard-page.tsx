@@ -6,6 +6,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 function DashboardPage() {
   const { data: session, isPending, error } = authClient.useSession();
   const navigate = useNavigate();
+ 
 
   if (session === null && !isPending) {
     navigate('/login');
@@ -26,7 +27,7 @@ function DashboardPage() {
     );
   }
   return (
-    <div className='lg:flex'>
+    <div className='lg:flex overflow-hidden  w-full page-wrapper'>
       <NavBar />
       {/* <Dashboard /> */}
       <Outlet />

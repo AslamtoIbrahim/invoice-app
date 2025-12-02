@@ -14,14 +14,26 @@ export const InvoiceReadSchema = z.object({
   billTo: BillToSchema,
   date: z.date(),
   paymentTerm: z.string(),
-  // status: z.string(),
   status: StatusSchema,
   description: z.string(),
   items: z.array(ItemSchema),
 })
 
+export const InvoiceCreateSchema = z.object({
+  code: z.string(),
+  billFrom: BillFromSchema,
+  billTo: BillToSchema,
+  date: z.date(),
+  paymentTerm: z.string(),
+  status: StatusSchema,
+  description: z.string(),
+  items: z.array(ItemSchema),
+})
 
-export const InvoiceSchema = z.object({
+export const InvoiceUpdateSchema = InvoiceCreateSchema.partial()
+
+
+export const InvoiceFormSchema = z.object({
     date: z.date(),
     billFrom: BillFromSchema,
     billTo: BillToSchema,
@@ -30,4 +42,6 @@ export const InvoiceSchema = z.object({
     description: z.string(),
     items: z.array(ItemSchema).min(1, "At least one item is required"),
 })
+
+ 
 

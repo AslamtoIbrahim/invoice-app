@@ -1,1 +1,1 @@
-export type Status ="paid" | "draft" | "pending";
+export type Status = "PAID" | "PENDING" | "DRAFT";
