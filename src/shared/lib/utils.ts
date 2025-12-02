@@ -1,6 +1,7 @@
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
-export const FRONTEND_URL = 'http://localhost:5173';
+// export const FRONTEND_URL = 'http://localhost:5173';
+export const FRONTEND_URL = 'https://eloquent-mousse-74eb8e.netlify.app';
 // export const BACKEND_URL = 'http://localhost:3000';
 export const BACKEND_URL = 'https://invoice-server-steel.vercel.app';
 
