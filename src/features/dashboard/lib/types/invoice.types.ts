@@ -13,4 +13,5 @@ export type InvoiceField = z.infer<typeof InvoiceFormSchema>
 export type InvoiceAxiosResponse = {
     invoices: InvoiceRead[];
     nextCursor: string | null;
+    total: number;
 }

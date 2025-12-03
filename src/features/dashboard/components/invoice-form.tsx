@@ -53,17 +53,14 @@ function InvoiceForm({ className, onCloseFormInvoice, updateInvocie, ...props }:
 
   function onSubmit(data: InvoiceField) {
     setLoading(true)
-    console.log('🤑 defaulStatus: ', defaulStatus);
-    console.log('😍 data: ', data);
-    console.log('🥩 terms: ', addDays(data.date, Number(data.paymentTerm)));
     const updatedInvoices = {
       ...data,
       status: defaulStatus,
     }
     if (updateInvocie?.id) {
       updateInvoice.mutate({ id: updateInvocie.id, invoice: updatedInvoices }, {
-        onSuccess(inv) {
-          console.log('msg', inv);
+        onSuccess() {
+          form.reset()
           setLoading(false)
           onCloseFormInvoice?.();
         }
@@ -77,8 +74,8 @@ function InvoiceForm({ className, onCloseFormInvoice, updateInvocie, ...props }:
       code: generateInvoiceCode()
     }
     createInvoice.mutate(newInvoice, {
-      onSuccess(inv) {
-        console.log('msg', inv);
+      onSuccess() {
+        form.reset()
         setLoading(false)
         onCloseFormInvoice?.();
       }
@@ -431,7 +428,8 @@ function InvoiceForm({ className, onCloseFormInvoice, updateInvocie, ...props }:
         <Field className="w-23 md:w-fit text-xs">
           <Button
             disabled={loading}
-            className=" text-xs bg-popover "
+            variant={'secondary'}
+            className=" text-xs font-bold shadow hover:bg-foreground hover:text-background"
             form="invoice-form"
             type="submit"
             onClick={() => setDefaulStatus('DRAFT')}

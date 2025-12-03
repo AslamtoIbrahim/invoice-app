@@ -15,7 +15,6 @@ function ButtonTheme({ className, ...props }: ButtonThemeProps) {
     })
 
     const onDarkModeClick = () => {
-        console.log('isDark: ', isDark)
         const mode = !isDark
         document.documentElement.classList.toggle('dark', mode)
         localStorage.theme = mode ? 'dark' : 'light'

@@ -19,8 +19,11 @@ function Content({ className, ...props }: ContentProps) {
     setEnableInitial(true)
   }, [status]);
 
+  useEffect(() => {
+    setEnableInitial(false)
+  }, [data]);
+
   function handleOnChange(inView: boolean) {
-    console.log('inView', inView);
     if (inView && hasNextPage) {
       setEnableInitial(false)
       fetchNextPage()
